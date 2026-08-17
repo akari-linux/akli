@@ -14,14 +14,12 @@ var CLI struct {
 	Verbose bool             `short:"v" help:"Enable verbosity."`
 	Version kong.VersionFlag `short:"V" help:"Print version and exit."`
 
-	Driver struct {
-		GPU struct {
-			Install struct {
-			} `cmd:"" help:"Automatically installs any required graphics drivers"`
+	Drivers struct {
+		Install struct {
+		} `cmd:"" help:"Automatically installs any required graphics drivers"`
 
-			Remove struct {
-			} `cmd:"" help:"Automatically removes installed graphics drivers"`
-		} `cmd:"" help:"Manage GPU drivers."`
+		Remove struct {
+		} `cmd:"" help:"Automatically removes installed graphics drivers"`
 	} `cmd:"" help:"Manage your system's drivers."`
 }
 
@@ -38,9 +36,9 @@ func main() {
 	}
 
 	switch ctx.Command() {
-	case "driver gpu install":
+	case "drivers install":
 		// TODO: Implement automatic GPU driver installation
-	case "driver gpu remove":
+	case "drivers remove":
 		// TODO: Implement automatic GPU driver removal
 	}
 }
