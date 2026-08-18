@@ -1,10 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"runtime"
 
+	"charm.land/huh/v2"
 	"charm.land/log/v2"
+	"github.com/akari-linux/akli/cmd/drivers"
 	"github.com/alecthomas/kong"
 )
 
@@ -37,7 +40,19 @@ func main() {
 
 	switch ctx.Command() {
 	case "drivers install":
-		// TODO: Implement automatic GPU driver installation
+		logger.Info("Loading available drivers...")
+
+		driverList := drivers.ListDrivers()
+
+		var huhOptions []huh.Option[string]
+		for k, v := range driverList {
+			huhOptions = append(huhOptions, huh.NewOption(fmt.Sprintf("[%v] %v", k, v), k))
+		}
+
+		var selectedDriver string
+
+		huh.NewSelect[string]().Title("Pick the driver you want to install").Options(huhOptions...).Value(&selectedDriver).Run()
+
 	case "drivers remove":
 		// TODO: Implement automatic GPU driver removal
 	}
